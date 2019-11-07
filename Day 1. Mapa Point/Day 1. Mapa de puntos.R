@@ -22,13 +22,13 @@ theme_set(theme_bw())
 
 ##############
 #Directorio de trabajo
-setwd ("~/Documents/Data Science/Repos/2019B/Mapas/Mapas/Mapa Point/")
+setwd ("~/Documents/Data Science/Repos/2019B/Mapas/30DaysMapChallenge/Day 1. Mapa Point")
 
 
 ##############
 #Abrir capas de shape para mapas
 shape <- read_sf(dsn = ".", 
-                 layer = "/Users/maximoernestojaramillomolina/Documents/Encuestas/Shape/Ageb y mas 2010/shps/jal/jal_ageb_urb.shp")
+                  layer = "coloniascdmx")
 
 #Verifico funcionalidad del shape de alcaldías
 ggplot(data = shape) +
