@@ -1,5 +1,5 @@
 ########################################################
-#Day 2 y 6: Mapa de polígonos y azul | Segregación social en Guadalajara
+#Day 2 y 6: Mapa de polígonos y azul | Segregación social en Guadalajara nivel AGEB
 #Elaborado por: Máximo Ernesto Jaramillo-Molina 
 #               Twitter: @rojo_neon
 #               Github: @rojoneon
@@ -12,7 +12,7 @@ library(pacman)
 # Abrimos las paqueterías con un sólo comando:
 p_load(ineq, haven, readr, readxl, ggplot2, shiny, tidyverse, expss, 
        DescTools, lmtest, MASS, knitr,gmodels)
-#install.packages("tidyverse")
+
 
 ##############
 #Paqueterías para mapear
@@ -25,7 +25,7 @@ library("colorspace")
 
 ##############
 #Directorio de trabajo
-setwd ("~/Documents/Data Science/Repos/2019B/Mapas/Mapas/Day 2 & 6. Segregación social en GDL/")
+setwd ("~/Documents/Data Science/Repos/2019B/Mapas/30DaysMapChallenge/Day 2 & 6. Segregación social en GDL")
 ##############
 
 ##############
@@ -68,6 +68,7 @@ ageb_jal_2 <- ageb_complemen %>%
   dplyr::select(CVEGEO, mun, viv5_r, edu49_r, salud5_r, viv36_r)
 
 #Filtro de datos perdidos, registrados como negativos
+#table(ageb_jal_2$viv36_r)
 #habitantes promeedio por cuarto
 ageb_jal_2 <- ageb_jal_2 %>%
   filter(viv5_r!=-9 & viv5_r!=-8 & viv5_r!=-6 )
@@ -86,7 +87,6 @@ ageb_jal_2 <- ageb_jal_2 %>%
 ggplot () +
   geom_sf(data = ageb_jal_2, aes(fill = salud5_r), lwd = 0) +
   scale_fill_gradientn(colors = viridis::viridis(20))
-table(ageb_jal_2$viv36_r)
 
 # Datos para nombres de municipios
 mun_jal <- cbind(mun_jal, st_coordinates(st_centroid(mun_jal)))
