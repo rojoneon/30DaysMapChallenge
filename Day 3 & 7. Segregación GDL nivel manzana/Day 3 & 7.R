@@ -24,10 +24,7 @@ library("colorspace")
 
 cat("
 library(rstudioapi)
-library(tidyverse) # ggplot2, dplyr, tidyr, readr, purrr, tibble
-library(magrittr) # pipes
 library(lintr) # code linting
-library(sf) # spatial data handling
 library(raster) # raster handling (needed for relief)
 library(viridis) # viridis color scale
 library(cowplot) # stack ggplots
@@ -52,16 +49,6 @@ if (!require(checkpoint)) {
 if (!dir.exists("~/.checkpoint")) {
   dir.create("~/.checkpoint")
 }
-# nolint end
-# install packages for the specified CRAN snapshot date
-checkpoint(snapshotDate = package_date,
-           project = path_to_wd,
-           verbose = T,
-           scanForPackages = T,
-           use.knitr = F,
-           R.version = R_version)
-rm(package_date)
-
 
 source("manifest.R")
 unlink("manifest.R")
@@ -187,8 +174,8 @@ theme_map <- function(...) {
       axis.text.y = element_blank(),
       axis.ticks = element_blank(),
       # add a subtle grid
-      # panel.grid.major = element_line(color = "#dbdbd9", size = 0.2),
-      # panel.grid.minor = element_blank(),
+      panel.grid.major = element_line(color = "#F5F5F3", size = 0.2),
+      panel.grid.minor = element_blank(),
       # background colors
       plot.background = element_rect(fill = "#F5F5F3",
                                      color = NA),
