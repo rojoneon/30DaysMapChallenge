@@ -1,5 +1,5 @@
 ######################################################################
-#Day 8: Mapa verde | Intensidad del trabajo de cuidado femenino en CDMX
+#Day 8: Mapa verder | Desigualdad en trabajos de cuidado en CDMX 
 #Elaborado por: Máximo Ernesto Jaramillo-Molina 
 #               Twitter: @rojo_neon
 #               Github: @rojoneon
@@ -21,37 +21,7 @@ library("ggspatial")
 theme_set(theme_bw())
 library("colorspace")
 #hcl_palettes(plot = TRUE)
-
-cat("
-library(rstudioapi)
-library(lintr) # code linting
-library(raster) # raster handling (needed for relief)
-library(viridis) # viridis color scale
-library(cowplot) # stack ggplots
-library(rmarkdown)",
-    file = "manifest.R")
-
-# if checkpoint is not yet installed, install it (for people using this
-# system for the first time)
-if (!require(checkpoint)) {
-  if (!require(devtools)) {
-    install.packages("devtools", repos = "http://cran.us.r-project.org")
-    require(devtools)
-  }
-  devtools::install_github("RevolutionAnalytics/checkpoint",
-                           ref = "v0.3.2", # could be adapted later,
-                           # as of now (beginning of July 2017
-                           # this is the current release on CRAN)
-                           repos = "http://cran.us.r-project.org")
-  require(checkpoint)
-}
-# nolint start
-if (!dir.exists("~/.checkpoint")) {
-  dir.create("~/.checkpoint")
-}
-
-source("manifest.R")
-unlink("manifest.R")
+p_load(rstudioapi, lintr, raster, viridis, cowplot, rmarkdown)
 sessionInfo()
 
 ##############
@@ -65,6 +35,18 @@ setwd ("~/Documents/Data Science/Repos/2019B/Mapas/30DaysMapChallenge/Day 8. Tra
 ##############
 #Abrir capas para mapas
 ##############
+
+
+# # relief
+# relief <- raster("input/02-relief-ascii.asc") %>%
+#   # hide relief outside of Switzerland by masking with country borders
+#   mask(country_geo) %>%
+#   as("SpatialPixelsDataFrame") %>%
+#   as.data.frame() %>%
+#   rename(value = layer)
+
+
+
 
 ##############
 #Municipios
@@ -183,7 +165,7 @@ theme_map <- function(...) {
       panel.spacing = unit(c(-.1, 0.2, .2, 0.2), "cm"),
       # titles
       legend.title = element_text(size = 11),
-      legend.text = element_text(size = 9, hjust = 0,
+      legend.text = element_text(size = 9,hjust = 1,
                                  color = "#939486"),
       plot.title = element_text(size = 15, hjust = 0.5,
                                 color = "#4B4C47"),
@@ -220,8 +202,8 @@ ggplot(data = manz_complemen) +
   ) +
   # Viridis color scale
   scale_fill_viridis(
-    option = "magma",
-    name = "Años",
+    option = "viridis",
+    name = " ",
     alpha = 0.8, 
     begin = 0.6, 
     end = 0.95,
@@ -242,30 +224,30 @@ ggplot(data = manz_complemen) +
   # Agregar títulos
   labs(x = NULL,
        y = NULL,
-       title = "Segregación espacial Guadalajara / II",
-       subtitle = "Años promedio de educación - Zona Metropolitana",
-       caption = "Fuente: Elaborado por @rojo_neon, con datos del Censo 2010.") +
+       title = "Desigualdad de trabajos de cuidado",
+       subtitle = "% de personas dedicadas a 'que haceres del hogar', CDMX",
+       caption = "Fuente: Elaborado por @rojo_neon, con datos del CPV 2010, INEGI.") +
   # Hacer un pequeño zoom
-  coord_sf(xlim = c(-99.35, -98.8), ylim = c(19.17,19.6), expand = FALSE) +
+  coord_sf(xlim = c(-99.35, -98.9), ylim = c(19.17,19.6), expand = FALSE) +
   # Finalmente, agregar theme
   theme_map()
 
 #Guardar el mapa
-ggsave("Segre_ZMG_I.png", width = 7)
+ggsave("Cuidados CDMX.png", width = 7)
 
 
-# first: draw the relief
-ggplot()+
-  geom_raster(
-  data = relief,
-  inherit.aes = FALSE,
-  aes(
-    x = x,
-    y = y,
-    alpha = value
-  ))
-
-
-
-
-
+# # relief
+# ggplot()+
+#   geom_raster(
+#   data = relief,
+#   inherit.aes = FALSE,
+#   aes(
+#     x = x,
+#     y = y,
+#     alpha = value
+#   ))
+# 
+# 
+# 
+# 
+# 
