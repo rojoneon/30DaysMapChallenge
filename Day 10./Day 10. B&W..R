@@ -387,7 +387,7 @@ ggplot(data = ageb_cdmx) +
   # Agregar títulos
   labs(x = NULL,
        y = NULL,
-       title = "¿Dónde viven los ricos y pobres en GDL?",
+       title = "¿Dónde viven los ricos y pobres en CDMX?",
        subtitle = "Según índice de estratificació social",
        caption = "Fuente: Elaborado por @rojo_neon, con datos del Censo 2010.",
        fill = "Estratos (2)") +
