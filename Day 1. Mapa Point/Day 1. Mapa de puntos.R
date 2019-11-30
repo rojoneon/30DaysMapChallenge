@@ -190,3 +190,37 @@ ggsave("Violación a mujeres en CDMX.png", width = 8)
 
 
 
+
+
+
+
+#Mostrar juntos            
+p<- ggplot () +
+  geom_sf(fill = "antiquewhite1") +
+  geom_sf(data = municipios_sf) +
+  geom_sf(data=victimas_sf, color = victimas_sf$manana, size=2, alpha = 0.5) +
+  annotation_scale(location = "bl", width_hint = 0.4) +
+  annotation_north_arrow(location = "bl", which_north = "true",
+                         pad_x = unit(0.15, "in"), pad_y = unit(0.25, "in"),
+                         style = north_arrow_fancy_orienteering) +
+  coord_sf(xlim = c(-99.4, -98.9), ylim = c(19,19.62), expand = FALSE) +
+  xlab("Longitud") + ylab("Latitudud") +
+  ggtitle("Violación a mujeres en CDMX", subtitle = "Víctimas en carpetas de investigación según hora") +
+  theme(text = element_text(family = "Verdana"),
+        panel.grid = element_blank(),
+        plot.margin = unit(c(10,30,10,20), units = "point"),
+        panel.background = element_rect(fill = "whitesmoke", linetype = "blank"),
+        plot.background = element_rect(fill = "whitesmoke", linetype = "blank"),
+        plot.subtitle =  element_text(size = 7),
+        plot.caption = element_text(hjust = 0.5 ,size = 6)) +
+  labs ( caption = "Fuente: Elaborado por @rojo_neon, con datos de Gob. CDMX.
+         Mañana (5am-10am) en color rojo y Tarde (6pm-11pm) en negro.",
+         color = "Mañana o tarde") 
+
+  
+  
+ggplot()+
+  geom_hex(data=victimas ,aes(x = lon, y = lat),
+             # fill = cut(..value.., c(0, 100, 250, 500, 1000,
+             #                         1500, 2000, 2500, Inf))),
+         colour = NA, bins = 15, alpha = 0.35) 
